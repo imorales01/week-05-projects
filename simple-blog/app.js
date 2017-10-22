@@ -1,3 +1,4 @@
+//importing some packages
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const express = require('express');
@@ -5,7 +6,7 @@ const models = require('./models');
 
 const PORT = process.env.PORT || 8000;
 
-
+// initiate application server
 const app = express();
 
 
@@ -21,11 +22,14 @@ app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/views/`);
 
 
-// The controllers contain all routing
+// The controllers contain all routing-
 app.use(require('./controllers'));
 
 
-
+// syncs the inforation to the database rows- we use sequelize to create 
+// the rows and columns
+// aslong as you explain it
+// server shouldnt start if the database doesnt exist
 models.sequelize.sync({ force: false })
   .then(() => {
     app.listen(PORT, () => {
